@@ -25,7 +25,7 @@ import JASP.Widgets
 
 Form
 {
-
+	info: qsTr("This function allows you to compute Bayes factor corresponding to a one sample t-test using the classical *t* statistic. The null hypothesis states that the population mean equals a specific constant, i.e., the test value. This Bayesian assessment can be executed in the absence of the raw data.")	
 	Group
 	{
 		DoubleField  { name: "tStatistic";	label: qsTr("t"); negativeValues: true; visible: inputType.value === "tAndN"	}
@@ -58,9 +58,9 @@ Form
 		id:		hypothesis
 		title:	qsTr("Alt. Hypothesis")
 		name:	"alternative"
-		RadioButton { value: "twoSided";	label: qsTr("\u2260 Test value"); checked: true	}
-		RadioButton { value: "greater";		label: qsTr("> Test value")						}
-		RadioButton { value: "less";		label: qsTr("< Test value")						}
+		RadioButton { value: "twoSided";	label: qsTr("\u2260 Test value"); checked: true; 	info: qsTr("Two-sided alternative hypothesis that the population mean is not equal to the test value")	}
+		RadioButton { value: "greater";		label: qsTr("> Test value");						info: qsTr("One-sided alternative hypothesis that the population mean is larger than the test value")	}
+		RadioButton { value: "less";		label: qsTr("< Test value");						info: qsTr("One-sided alternative hypothesis that the population mean is smaller than the test value")	}
 	}
 
 	Group
@@ -68,12 +68,12 @@ Form
 		title: qsTr("Plots")
 		CheckBox
 		{
-			name: "priorPosteriorPlot";		label: qsTr("Prior and posterior")
-			CheckBox { name: "priorPosteriorPlotAdditionalInfo";		label: qsTr("Additional info"); checked: true }
+			name: "priorPosteriorPlot";		label: qsTr("Prior and posterior");		info: qsTr("Displays the prior and posterior density of the effect size under the alternative hypothesis.")	
+			CheckBox { name: "priorPosteriorPlotAdditionalInfo";		label: qsTr("Additional info"); checked: true;	info: qsTr("Shows the Bayes factor using the chosen prior, a probability wheel showing evidence for each hypothesis, and the median with 95% credible interval of the effect size.")	 }
 		}
 		CheckBox
 		{
-			name: "bfRobustnessPlot";	label: qsTr("Bayes factor robustness check")
+			name: "bfRobustnessPlot";	label: qsTr("Bayes factor robustness check"); info: qsTr("Displays the Bayes factor as a function of the width of the Cauchy prior on effect size. The scale of the Cauchy prior is varied between 0 and 1.5 (between 0 and 2 if user prior width is greater than 1.5), creating progressively more uninformative priors.")	
 			CheckBox { name: "bfRobustnessPlotAdditionalInfo";	label: qsTr("Additional info"); checked: true }
 		}
 	}

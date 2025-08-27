@@ -25,11 +25,12 @@ import JASP.Widgets
 
 Form
 {
+	info: qsTr("This function allows you to compute Bayes factor corresponding to an independent groups t-test using the classical *t* statistic. The null hypothesis states that the population means of two independent groups are equal. This Bayesian assessment can be executed in the absence of the raw data.\n" + "## " + "Assumptions\n" + "- The observations in both groups are a random sample from the population\n" + "- The dependent variable is normally distributed in both populations\n" + "- The population variances in the two groups are homogeneous")
 
 	Group
 	{
-		DoubleField  { name: "tStatistic";				label: qsTr("t"); 			visible: inputType.value === "tAndN";	negativeValues: true }
-		DoubleField  { name: "cohensD";					label: qsTr("Cohen's d");	visible: inputType.value === "cohensD"	}
+		DoubleField  { name: "tStatistic";				label: qsTr("t"); 			visible: inputType.value === "tAndN";	negativeValues: true	}
+		DoubleField  { name: "cohensD";					label: qsTr("Cohen's d");	visible: inputType.value === "cohensD"		}
 		Group
 		{
 			columns: 2
@@ -65,9 +66,9 @@ Form
 		id:		hypothesis
 		title:	qsTr("Alt. Hypothesis")
 		name:	"alternative"
-		RadioButton { value: "twoSided";	label: qsTr("Group 1 \u2260 Group 2"); checked: true	}
-		RadioButton { value: "greater";	  label: qsTr("Group 1 > Group 2")						}
-		RadioButton { value: "less";	    label: qsTr("Group 1 < Group 2")						}
+		RadioButton { value: "twoSided";	label: qsTr("Group 1 \u2260 Group 2"); checked: true;	info: qsTr("Two-sided alternative hypothesis that the population means are equal.")	}
+		RadioButton { value: "greater";	  label: qsTr("Group 1 > Group 2");							info: qsTr("One-sided alternative hypothesis that the population mean of Group one is larger than the population mean of Group two.")	}
+		RadioButton { value: "less";	    label: qsTr("Group 1 < Group 2");						info: qsTr("One-sided alternative hypothesis that the population mean of Group one is smaller than the population mean of Group.")		}
 	}
 
 	Group
@@ -75,12 +76,12 @@ Form
 		title: qsTr("Plots")
 		CheckBox
 		{
-			name: "priorPosteriorPlot";		label: qsTr("Prior and posterior")
-			CheckBox { name: "priorPosteriorPlotAdditionalInfo";		label: qsTr("Additional info"); checked: true }
+			name: "priorPosteriorPlot";		label: qsTr("Prior and posterior");		info: qsTr("Displays the prior and posterior density of the effect size under the alternative hypothesis.")
+			CheckBox { name: "priorPosteriorPlotAdditionalInfo";		label: qsTr("Additional info"); checked: true; info: qsTr("Shows the Bayes factor using the chosen prior, a probability wheel showing evidence for each hypothesis, and the median with 95% credible interval of the effect size.") }
 		}
 		CheckBox
 		{
-			name: "bfRobustnessPlot";	label: qsTr("Bayes factor robustness check")
+			name: "bfRobustnessPlot";	label: qsTr("Bayes factor robustness check");		info: qsTr("Displays the Bayes factor as a function of the width of the Cauchy prior on effect size. The scale of the Cauchy prior is varied between 0 and 1.5 (between 0 and 2 if user prior width is greater than 1.5), creating progressively more uninformative priors.")
 			CheckBox { name: "bfRobustnessPlotAdditionalInfo";	label: qsTr("Additional info"); checked: true }
 		}
 	}
