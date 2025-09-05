@@ -22,7 +22,7 @@ import JASP.Controls
 
 Form 
 {
-    
+    info: qsTr("The Bayesian Correlation analysis allows you to test the null hypothesis that the population (Pearson product-moment correlation) between two variables equals 0.")
 
     IntegerField { name: "n"; label: qsTr("Sample size") }
 
@@ -35,12 +35,12 @@ Form
 		Layout.columnSpan: 2
 		RadioButton
 		{
-            value: "pearson"; label: qsTr("Pearson's r"); checked: true; childrenOnSameRow: true
+            value: "pearson"; label: qsTr("Pearson's r"); checked: true; childrenOnSameRow: true; info: qsTr("The observed Pearson product-moment correlation coefficient.")
             DoubleField { name: "rObs"; defaultValue: 0; min: -1; max: 1 }
 		}
 		RadioButton
 		{
-            value: "kendall"; label: qsTr("Kendall's tau-b"); childrenOnSameRow: true
+            value: "kendall"; label: qsTr("Kendall's tau-b"); childrenOnSameRow: true; info: qsTr("The observed Kendall's tau-b rank-order correlation coefficient.")
             DoubleField { name: "tauObs"; defaultValue: 0; min: -1; max: 1 }
 		}
         RadioButton
@@ -56,14 +56,14 @@ Form
 		id:		hypothesis
 		title:	qsTr("Alt. Hypothesis")
 		name:	"alternative"
-        RadioButton { value: "twoSided";                           label: qsTr("Correlated"); checked: true	}
-        RadioButton { value: "greater";                             label: qsTr("Correlated positively")		}
-        RadioButton { value: "less";                                label: qsTr("Correlated negatively")		}
+        RadioButton { value: "twoSided";   label: qsTr("Correlated"); checked: true;	info: qsTr("Two-sided alternative hypothesis that the population correlation does not equal 0.")}
+        RadioButton { value: "greater";    label: qsTr("Correlated positively");		info: qsTr("One-sided alternative hypothesis that the population correlation is higher than 0.")}
+        RadioButton { value: "less";       label: qsTr("Correlated negatively");		info: qsTr("One-sided alternative hypothesis that the population correlation is lower than 0.")}
 	}
 
     CheckBox
     {
-        name: "ci"; label: qsTr("Credible intervals")
+        name: "ci"; label: qsTr("Credible intervals"); info: qsTr("Display central credible intervals. A credible interval shows the probability that the true effect size lies within certain values. The default credible interval is set at 95%.")
         CIField { name: "ciLevel";	label: qsTr("Interval") }
     }
 
@@ -72,14 +72,14 @@ Form
 		title: qsTr("Plots")
 		CheckBox
 		{
-            name: "priorPosteriorPlot";				label: qsTr("Prior and posterior")
-            CheckBox { name: "priorPosteriorPlotAdditionalEstimationInfo";	label: qsTr("Estimation info"); checked: true }
-            CheckBox { name: "priorPosteriorPlotAdditionalTestingInfo";	label: qsTr("Testing info"); checked: true }
+            name: "priorPosteriorPlot";				label: qsTr("Prior and posterior");			info: qsTr("Displays the prior and posterior density of the correlation under the alternative hypothesis.")
+            CheckBox { name: "priorPosteriorPlotAdditionalEstimationInfo";	label: qsTr("Estimation info"); checked: true; info: qsTr("Displays the median and 95% credible interval of the posterior density") }
+            CheckBox { name: "priorPosteriorPlotAdditionalTestingInfo";	label: qsTr("Testing info"); checked: true; info: qsTr("Displays the Bayes factor; displays a probability wheel depicting the odds of the data under the null vs. alternative hypothesis; displays gray circles that represent the height of the prior and the posterior density at the testing point (rho=0). The ratio of the two densities at that point is equal to the Bayes factor.") }
 		}
 		CheckBox
 		{
-            name: "bfRobustnessPlot";                          label: qsTr("Bayes factor robustness check")
-            CheckBox { name: "bfRobustnessPlotAdditionalInfo"; label: qsTr("Additional info"); checked: true }
+            name: "bfRobustnessPlot";                          label: qsTr("Bayes factor robustness check"); info: qsTr("Displays the Bayes factor as a function of the width of the Cauchy prior on effect size. The scale of the Cauchy prior is varied between 0 and 1.5 (between 0 and 2 if user prior width is greater than 1.5), creating progressively more uninformative priors.")
+            CheckBox { name: "bfRobustnessPlotAdditionalInfo"; label: qsTr("Additional info"); checked: true; info: qsTr("Displays the maximum Bayes factor in favor of the alternative hypothesis and the user Bayes factor.") }
 		}
 	}
 
