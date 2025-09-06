@@ -24,6 +24,7 @@ import JASP
 
 Form
 {
+	info: qsTr("This function computes the Bayes factor for a binomially distributed observation. The Bayesian binomial test is described in Jeffreys (1961, p. 256). This test informs us whether the data support or contradict a value suggested for the parameter (chance) in question.")
 
 	Group
 	{
@@ -39,9 +40,9 @@ Form
 		id:		hypothesis
 		title:	qsTr("Alt. Hypothesis")
 		name:	"alternative"
-		RadioButton { value: "twoSided";	label: qsTr("\u2260 Test value"); checked: true	}
-		RadioButton { value: "greater";		label: qsTr("> Test value")						}
-		RadioButton { value: "less";		label: qsTr("< Test value")						}
+		RadioButton { value: "twoSided";	label: qsTr("\u2260 Test value"); checked: true;	info: qsTr("Two-sided alternative hypothesis that the population mean is not equal to the test value.")	}
+		RadioButton { value: "greater";		label: qsTr("> Test value");						info: qsTr("One-sided alternative hypothesis that the population mean is larger than the test value.")	}
+		RadioButton { value: "less";		label: qsTr("< Test value");						info: qsTr("One-sided alternative hypothesis that the population mean is smaller than the test value.")	}
 	}
 
 	Group
@@ -49,8 +50,8 @@ Form
 		title: qsTr("Plots")
 		CheckBox
 		{
-			name: "priorPosteriorPlot";		label: qsTr("Prior and posterior")
-			CheckBox { name: "priorPosteriorPlotAdditionalInfo"; label: qsTr("Additional info"); checked: true }
+			name: "priorPosteriorPlot";		label: qsTr("Prior and posterior");		info: qsTr("Displays the prior (dashed line) and posterior (solid line) density of the effect size under the alternative hypothesis; the gray circles represent the height of the prior and the posterior density at effect size delta = 0. The horizontal solid line represents the width of the 95% credible interval of the posterior.")
+			CheckBox { name: "priorPosteriorPlotAdditionalInfo"; label: qsTr("Additional info"); checked: true; info: qsTr("Displays the Bayes factor computed with the user-defined prior; displays a probability wheel depicting the odds of the data under the null vs. alternative hypothesis; displays the median and 95% credible interval of the posterior density.") }
 		}
 	}
 
@@ -60,7 +61,7 @@ Form
 	Group
 	{
 		title: qsTr("Prior")
-		DoubleField { name: "betaPriorA"; label: qsTr("Beta prior: parameter a"); defaultValue: 1; max: 10000; inclusive: JASP.None; decimals: 3 }
-		DoubleField { name: "betaPriorB"; label: qsTr("Beta prior: parameter b"); defaultValue: 1; max: 10000; inclusive: JASP.None; decimals: 3 }
+		DoubleField { name: "betaPriorA"; label: qsTr("Beta prior: parameter a"); defaultValue: 1; max: 10000; inclusive: JASP.None; decimals: 3; info: qsTr("Sets how much prior belief you have in success. When a = b = 1, this corresponds to a uniform prior distribution.") }
+		DoubleField { name: "betaPriorB"; label: qsTr("Beta prior: parameter b"); defaultValue: 1; max: 10000; inclusive: JASP.None; decimals: 3; info: qsTr("Sets how much prior belief you have in failure. When a = b = 1, this corresponds to a uniform prior distribution.") }
 	}
 }
